@@ -27,6 +27,7 @@
   const px = (e, prop, n) => e.style.setProperty(prop, `${n}px`);
   const fmtInt = (n) => Number(n).toLocaleString('en-US');
   const fmtNum = (x, d = 4) => (x === null || x === undefined || Number.isNaN(x) ? '' : Number.isInteger(x) ? fmtInt(x) : Number(x).toLocaleString('en-US', { maximumFractionDigits: d }));
+  const plural = (n, w) => `${fmtInt(n)} ${w}${n === 1 ? '' : 's'}`;
   const post = (m) => vscode.postMessage(m);
   const vars = () => (S.meta ? S.meta.variables : []);
 
@@ -35,7 +36,7 @@
   function frame(main) {
     app.textContent = '';
     const m = S.meta;
-    const desc = m ? `${m.formatLabel} · ${fmtInt(m.rows)} rows · ${fmtInt(m.variables.length)} variables` : '';
+    const desc = m ? `${m.formatLabel} · ${plural(m.rows, 'row')} · ${plural(m.variables.length, 'variable')}` : '';
     const head = h('header', { class: 'top' },
       h('div', { class: 'title' }, h('span', { class: 'fname', text: S.name }), h('span', { class: 'desc', text: desc })),
       h('div', { class: 'actions' },
@@ -127,7 +128,7 @@
     };
     input.addEventListener('keydown', (e) => { if (e.key === 'Enter') run(); });
     input.addEventListener('search', () => { if (!input.value && S.view.filter) run(); });
-    const status = h('span', { class: 'muted status', text: S.busy ? 'Working…' : S.viewError ? S.viewError : S.view.filter || S.view.sort ? `${fmtInt(S.count)} of ${fmtInt(S.meta.rows)} rows` : `${fmtInt(S.meta.rows)} rows` });
+    const status = h('span', { class: 'muted status', text: S.busy ? 'Working…' : S.viewError ? S.viewError : S.view.filter || S.view.sort ? `${fmtInt(S.count)} of ${plural(S.meta.rows, 'row')}` : plural(S.meta.rows, 'row') });
     const tools = h('div', { class: 'tools' }, sel, input, h('button', { class: 'btn small', text: 'Filter', onclick: run }),
       S.view.filter || S.view.sort ? h('button', { class: 'btn small', text: 'Clear', title: 'Clear the filter and the sort', onclick: () => { S.view = { filter: null, sort: null }; S.filterText = ''; applyView(); } }) : null,
       status, h('span', { class: 'grow' }),
@@ -143,7 +144,7 @@
     scroller.addEventListener('keydown', gridKeys);
     layer.addEventListener('keydown', gridKeys);
     S.afterRender = ((prev) => () => { if (prev) prev(); scroller.scrollTop = S.scroll.top; scroller.scrollLeft = S.scroll.left; drawGrid(); })(S.afterRender);
-    return h('div', { class: 'datawrap' }, tools, wrap, S.meta.truncated ? h('div', { class: 'warnline', text: S.meta.warnings[0] || 'Not every row was read.' }) : null);
+    return h('div', { class: 'datawrap' }, tools, wrap, S.meta.warnings && S.meta.warnings.length ? h('div', { class: 'warnline', text: `${S.meta.warnings[0]}${S.meta.warnings.length > 1 ? ` (${S.meta.warnings.length} notes on the Info tab)` : ''}` }) : S.meta.truncated ? h('div', { class: 'warnline', text: 'Not every row was read.' }) : null);
   }
 
   /** Scroll geometry: first row on screen and the pixel offset of that row. */
