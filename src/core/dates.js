@@ -53,6 +53,7 @@ function ymd(ms) {
   const d = new Date(ms);
   if (Number.isNaN(d.getTime())) return null;
   const y = d.getUTCFullYear();
+  if (y > 9999 || y < -9999) return null;
   const ys = y < 0 ? `-${String(-y).padStart(4, '0')}` : String(y).padStart(4, '0');
   return `${ys}-${p2(d.getUTCMonth() + 1)}-${p2(d.getUTCDate())}`;
 }
@@ -74,6 +75,7 @@ function dateTime(ms) {
   const d = new Date(ms);
   if (Number.isNaN(d.getTime())) return null;
   const day = ymd(ms);
+  if (day === null) return null;
   const msPart = d.getUTCMilliseconds();
   return `${day} ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}:${p2(d.getUTCSeconds())}${msPart ? `.${String(msPart).padStart(3, '0')}` : ''}`;
 }

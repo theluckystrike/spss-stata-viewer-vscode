@@ -1,8 +1,8 @@
 ## Value labels and variables
 
-Survey files keep answers as codes, such as 1 to 5, with a label for each code. The **Value labels** button at the top shows the labels; click it again to see the codes.
+Survey files keep answers as codes, such as 1 to 5, with a label for each code. The Value labels button at the top shows the labels; click it again to see the codes.
 
-The **Variables** tab lists each variable with:
+The Variables tab lists each variable with:
 
 - its label and type
 - its display format (dates show as dates)

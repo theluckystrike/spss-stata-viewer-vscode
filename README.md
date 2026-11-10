@@ -8,15 +8,15 @@ Open SPSS `.sav` and `.zsav`, Stata `.dta` and SAS transport `.xpt` data files i
 
 ## What you get for free
 
-- **Data grid.** Rows load a page at a time from a reader in the background, so a file with millions of rows scrolls at once. Click a column header to sort; click again for descending.
-- **Value labels or codes.** One button switches between "Strongly agree" and the code `5` behind it, in the grid and in the copied text.
-- **Variables tab.** Name, label, type, display format, measure (nominal, ordinal, scale), user-defined missing values and value labels of every variable, with a filter box.
-- **Missing values.** The system missing value shows as a grey dot. SPSS user-defined missing values (discrete values and ranges) and Stata `.a` to `.z` show in grey italics and are left out of the statistics.
-- **Dates.** SPSS `DATE`, `ADATE`, `EDATE`, `SDATE`, `DATETIME`, `TIME` and `DTIME`, Stata `%td`, `%tc`, `%tw`, `%tm`, `%tq`, `%th` and `%ty`, and SAS `DATE`, `DATETIME` and `TIME` formats show as dates and times.
-- **Filter.** Pick a column and type text, a comparison (`> 30`, `<= 5`, `!= 9`), a range (`18..65`) or `missing`.
-- **Summary.** The **Σ** in a column header shows valid and missing counts, mean, standard deviation, minimum, quartiles, median, maximum and the most frequent values. Variables with value labels get a frequency table with percent, valid percent and cumulative percent.
-- **Copy.** Click a cell, shift-click another, and press Ctrl+C (Cmd+C on a Mac): the range goes to the clipboard as tab-separated text with the variable names, ready to paste into Excel or a document.
-- **Info tab.** Rows, variables, file label, creation date, encoding, compression, the program that wrote the file, the weight variable and the documents stored in the file.
+- Data grid. Rows load a page at a time from a reader in the background, so a file with millions of rows scrolls at once. Click a column header to sort; click again for descending.
+- Value labels or codes. One button switches between "Strongly agree" and the code `5` behind it, in the grid and in the copied text.
+- Variables tab. Name, label, type, display format, measure (nominal, ordinal, scale), user-defined missing values and value labels of every variable, with a filter box.
+- Missing values. The system missing value shows as a grey dot. SPSS user-defined missing values (discrete values and ranges) and Stata `.a` to `.z` show in grey italics and are left out of the statistics.
+- Dates. SPSS `DATE`, `ADATE`, `EDATE`, `SDATE`, `DATETIME`, `TIME` and `DTIME`, Stata `%td`, `%tc`, `%tw`, `%tm`, `%tq`, `%th` and `%ty`, and SAS `DATE`, `DATETIME` and `TIME` formats show as dates and times.
+- Filter. Pick a column and type text, a comparison (`> 30`, `<= 5`, `!= 9`), a range (`18..65`) or `missing`.
+- Summary. The Σ in a column header shows valid and missing counts, mean, standard deviation, minimum, quartiles, median, maximum and the most frequent values. Variables with value labels get a frequency table with percent, valid percent and cumulative percent.
+- Copy. Click a cell, shift-click another, and press Ctrl+C (Cmd+C on a Mac): the range goes to the clipboard as tab-separated text with the variable names, ready to paste into Excel or a document.
+- Info tab. Rows, variables, file label, creation date, encoding, compression, the program that wrote the file, the weight variable and the documents stored in the file.
 
 ![The Variables tab of a Stata file: labels, storage types, display formats and value labels of each variable](images/variables.png)
 
@@ -24,9 +24,9 @@ Open SPSS `.sav` and `.zsav`, Stata `.dta` and SAS transport `.xpt` data files i
 
 Three tools for analysts and researchers, in the toolbar of the viewer and the Command Palette. Each has 3 free tries on your computer; a try counts only when the file is written or the crosstab is on screen. Escape or Cancel never uses a try.
 
-- **Export data** to CSV, Excel (`.xlsx`) or JSON, with value labels or with codes. The export takes the rows in the current view, so a filter and a sort apply. The Excel file has a second sheet with the variables and their value labels.
-- **Codebook** as Markdown, HTML or CSV: every variable with its label, type, format, measure, missing value definitions, value labels with counts and percentages, and summary statistics. Useful for a data appendix, a data management plan or a quick check before analysis.
-- **Crosstab** of two variables, with an optional third as a layer: counts, row, column and total percentages, and a Pearson chi-square test with degrees of freedom, p-value and a note when expected counts are below 5. Save the table as CSV or Markdown.
+- Export data to CSV, Excel (`.xlsx`) or JSON, with value labels or with codes. The export takes the rows in the current view, so a filter and a sort apply. The Excel file has a second sheet with the variables and their value labels.
+- Codebook as Markdown, HTML or CSV: every variable with its label, type, format, measure, missing value definitions, value labels with counts and percentages, and summary statistics. Useful for a data appendix, a data management plan or a quick check before analysis.
+- Crosstab of two variables, with an optional third as a layer: counts, row, column and total percentages, and a Pearson chi-square test with degrees of freedom, p-value and a note when expected counts are below 5. Save the table as CSV or Markdown.
 
 Zovo Pro is USD 19 once and turns on the Pro tools of every Zovo extension. When the free tries are used, the tool shows the ways to pay: by card, GitHub Sponsors or PayPal, or enter a key you already have. Nothing about Pro shows when you open a file. The setting `statsViewer.showProTools` hides the three buttons.
 
@@ -38,15 +38,15 @@ Zovo Pro is USD 19 once and turns on the Pro tools of every Zovo extension. When
 |---|---|---|
 | SPSS system file | `.sav` (uncompressed and bytecode compressed), `.zsav` (zlib) | Variables, long names, labels, value labels (also for long strings), user-defined missing values, very long strings (over 255 characters), measure levels, the encoding record, documents, the weight variable |
 | Stata | `.dta` releases 113, 114, 115 (Stata 8 to 12), 117 (Stata 13), 118 and 119 (Stata 14 to 18) | Variables, labels, value labels, `strL` long strings, extended missing values `.a` to `.z`, display formats and dates, either byte order |
-| SAS transport | `.xpt` version 5 (the format of FDA submissions) | Variables, labels, formats, IBM floating point numbers, missing values `.A` to `.Z` and `._`. A file with several datasets shows the first one |
+| SAS transport | `.xpt` version 5 (the format of FDA submissions) and version 8 (long names and labels) | Variables, labels, formats, IBM floating point numbers, missing values `.A` to `.Z` and `._`. A file with several datasets shows the first one and names the others on the Info tab |
 
-Not read: SAS `.sas7bdat` files, SPSS portable `.por` files and SAS transport version 8.
+Not read: SAS `.sas7bdat` files, SPSS portable `.por` files and Stata files older than release 113 (Stata 7 and before).
 
 ## Open a file
 
 - Click a `.sav`, `.zsav`, `.dta` or `.xpt` file in the Explorer. It opens in the viewer.
-- Or run **SPSS & Stata Viewer: Open in SPSS & Stata Viewer** from the Command Palette.
-- Run **SPSS & Stata Viewer: Get started** for a short walkthrough with sample files.
+- Or run SPSS & Stata Viewer: Open in SPSS & Stata Viewer from the Command Palette.
+- Run SPSS & Stata Viewer: Get started for a short walkthrough with sample files.
 
 ## Safe with any file
 

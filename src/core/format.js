@@ -27,11 +27,22 @@ function numberFormatter(v, family) {
       return (x) => x.toFixed(d);
     }
     if (m && m[2] === 'e') { const d = Math.min(16, Number(m[1])); return (x) => x.toExponential(d); }
+    const g = /^%-?~?(\d+)\.\d*g/.exec(f);
+    if (g) return widthGeneral(Math.max(4, Math.min(30, Number(g[1]))), v.storage === 'float' ? 7 : 15);
   } else {
     m = /(\d+)\.(\d+)$/.exec(f);
     if (m && !/^A/.test(f)) { const d = Math.min(16, Number(m[2])); return (x) => (Math.abs(x) < 1e21 ? x.toFixed(d) : String(x)); }
   }
-  return general;
+  return v.storage === 'float' ? widthGeneral(30, 7) : general;
+}
+
+/** Stata %9.0g style: the most significant digits (up to maxP) that fit in w characters. */
+function widthGeneral(w, maxP) {
+  return (x) => {
+    if (Number.isInteger(x) && Math.abs(x) < 1e15 && String(x).length <= Math.max(w, 15)) return String(x);
+    for (let p = maxP; p >= 1; p--) { const t = String(Number(x.toPrecision(p))); if (t.length <= w) return t; }
+    return x.toExponential(Math.max(0, Math.min(maxP, w - 6) - 1));
+  };
 }
 
 function general(x) {

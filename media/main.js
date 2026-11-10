@@ -376,7 +376,7 @@
   function errorPage(m) {
     app.textContent = '';
     app.append(h('div', { class: 'pad' }, h('h2', { text: m.notData ? 'Not an SPSS, Stata or SAS transport file' : 'This file could not be read' }), h('p', { class: 'errmsg', text: m.message }),
-      m.notData ? h('p', { class: 'muted', text: 'SPSS & Stata Viewer reads SPSS .sav and .zsav, Stata .dta (releases 113 to 119) and SAS transport .xpt (version 5) files.' }) : null,
+      m.notData ? h('p', { class: 'muted', text: 'SPSS & Stata Viewer reads SPSS .sav and .zsav, Stata .dta (releases 113 to 119) and SAS transport .xpt (versions 5 and 8) files.' }) : null,
       h('div', { class: 'tools flat' }, h('button', { class: 'btn', 'data-act': 'reload', onclick: () => { app.textContent = ''; app.append(h('p', { class: 'loading', text: 'Reading the file...' })); post({ type: 'reload' }); } }, 'Try again'),
         m.notData ? h('button', { class: 'btn', 'data-act': 'text', onclick: () => post({ type: 'openText' }) }, 'Open as text') : null)));
     const foot = document.getElementById('zovo-footer'); if (foot) app.append(foot.content.cloneNode(true));
