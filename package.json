@@ -1,0 +1,245 @@
+{
+  "name": "zovo-spss-stata-viewer",
+  "displayName": "SPSS Viewer & Stata Viewer (SAV, DTA, XPT Files)",
+  "description": "SPSS viewer and Stata viewer for VS Code: open .sav, .zsav, .dta and SAS .xpt data files in a fast grid with value labels, variable labels, missing values and dates. Sort, filter, summary statistics and frequencies, copy as TSV. Read-only, no network, millions of rows.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1B2A4A",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/spss-stata-viewer-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/theluckystrike/spss-stata-viewer-vscode/issues"
+  },
+  "homepage": "https://github.com/theluckystrike/spss-stata-viewer-vscode#readme",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Data Science",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "spss viewer",
+    "stata viewer",
+    "sav viewer",
+    "dta viewer",
+    "sas viewer",
+    "xpt viewer",
+    "spss",
+    "stata",
+    "sav file",
+    "dta file",
+    "spss file",
+    "zsav",
+    "sas transport",
+    "xpt",
+    "value labels",
+    "codebook",
+    "crosstab",
+    "survey data",
+    "statistics",
+    "dataset",
+    "data viewer",
+    "research"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "statsViewer.data",
+        "displayName": "SPSS & Stata Viewer",
+        "selector": [
+          {
+            "filenamePattern": "*.sav"
+          },
+          {
+            "filenamePattern": "*.zsav"
+          },
+          {
+            "filenamePattern": "*.dta"
+          },
+          {
+            "filenamePattern": "*.xpt"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "statsViewer.open",
+        "title": "Open in SPSS & Stata Viewer",
+        "category": "SPSS & Stata Viewer",
+        "icon": "$(table)"
+      },
+      {
+        "command": "statsViewer.openSample",
+        "title": "Open a sample SPSS file",
+        "category": "SPSS & Stata Viewer"
+      },
+      {
+        "command": "statsViewer.openWalkthrough",
+        "title": "Get started",
+        "category": "SPSS & Stata Viewer"
+      },
+      {
+        "command": "statsViewer.exportData",
+        "title": "Export data to CSV, Excel or JSON (Pro)",
+        "category": "SPSS & Stata Viewer"
+      },
+      {
+        "command": "statsViewer.codebook",
+        "title": "Write a codebook (Pro)",
+        "category": "SPSS & Stata Viewer"
+      },
+      {
+        "command": "statsViewer.crosstab",
+        "title": "Crosstab with chi-square (Pro)",
+        "category": "SPSS & Stata Viewer"
+      },
+      {
+        "command": "statsViewer.getPro",
+        "title": "Get Zovo Pro (USD 19 once, all 22 Zovo extensions)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "statsViewer.payWithPayPal",
+        "title": "Pay for Zovo Pro with PayPal (USD 19, team of 5 USD 59)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "statsViewer.unlockWithSponsors",
+        "title": "I already paid: unlock with GitHub Sponsors",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "statsViewer.enterLicenseKey",
+        "title": "Enter Zovo Pro license key",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "statsViewer.removeLicense",
+        "title": "Remove Zovo Pro from this editor",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "statsViewer.payByCard",
+        "title": "Pay for Zovo Pro by card (USD 19)",
+        "category": "Zovo Pro"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "statsViewer.open",
+          "when": "!explorerResourceIsFolder",
+          "group": "navigation@40"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "statsViewer.openSample",
+          "when": "true"
+        },
+        {
+          "command": "statsViewer.exportData",
+          "when": "config.statsViewer.showProTools"
+        },
+        {
+          "command": "statsViewer.codebook",
+          "when": "config.statsViewer.showProTools"
+        },
+        {
+          "command": "statsViewer.crosstab",
+          "when": "config.statsViewer.showProTools"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SPSS & Stata Viewer",
+      "properties": {
+        "statsViewer.showProTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Export, Codebook and Crosstab buttons (Zovo Pro tools, 3 free tries each). Turn off to hide them."
+        },
+        "statsViewer.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Rate, More free viewers and support links at the bottom of the viewer."
+        },
+        "statsViewer.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask once, after a few days of use, whether you want to rate the extension. Never after an error."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "statsViewer.start",
+        "title": "SPSS Viewer & Stata Viewer",
+        "description": "Open SPSS, Stata and SAS transport data files in VS Code, with value labels and summaries.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open a data file",
+            "description": "Click any .sav, .zsav, .dta or .xpt file in the Explorer: it opens in the data grid. Scroll through millions of rows, sort by a column, filter, and copy cells.\n[Open a sample SPSS file](command:statsViewer.openSample)\n[Open a file...](command:statsViewer.open)",
+            "media": {
+              "markdown": "walkthrough/open.md"
+            }
+          },
+          {
+            "id": "labels",
+            "title": "Value labels and variables",
+            "description": "The Value labels button switches between labels such as \"Agree\" and the codes behind them. The Variables tab lists every variable with its label, type, format, measure, missing values and value labels.\n[Open a sample Stata file](command:statsViewer.openSample?%22dta%22)",
+            "media": {
+              "markdown": "walkthrough/labels.md"
+            }
+          },
+          {
+            "id": "summary",
+            "title": "Summaries and frequencies",
+            "description": "Click the sum sign in a column header for the count, missing values, mean, standard deviation, quartiles and the frequency table of that variable.\n[Open a sample SPSS file](command:statsViewer.openSample)",
+            "media": {
+              "markdown": "walkthrough/summary.md"
+            }
+          },
+          {
+            "id": "zovo-related",
+            "title": "Files that often come with survey data",
+            "description": "If your project also has spreadsheets and CSV files or SQLite databases, these free Zovo extensions open them. A link opens the extension page, and you choose there whether to install it.\n[XLSX and CSV Viewer](command:extension.open?%5B%22zovo.table-viewer-vscode%22%5D)\n[SQLite Viewer](command:extension.open?%5B%22zovo.sqlite-table-viewer%22%5D)",
+            "media": {
+              "markdown": "walkthrough/related.md"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/test.js",
+    "samples": "node scripts/make_samples.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "~1.90.0"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike/sponsorships?tier_id=679878"
+  }
+}
