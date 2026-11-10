@@ -111,14 +111,19 @@ test('hostile files: a cut file, HTML in labels; the host keeps working after ea
 });
 
 test('the watchdog stops a request that takes too long, and the next request reads the file again', async () => {
-  const sess = new Session({ file: SAV, name: 'survey.sav', timeouts: { summary: 1 } });
+  // 300,000 rows: a summary (with quartiles) takes far longer than the 1 ms watchdog, so the timeout is certain.
+  // (On 600 rows the worker sometimes answered inside 1 ms and the test failed now and then.)
+  const n = 300000, rows = new Array(n);
+  for (let i = 0; i < n; i++) rows[i] = [((i * 7919) % 100003) / 7];
+  const BIG = file('watchdog.sav', writeSav({ variables: [{ name: 'x', type: 'numeric', format: { type: 5, w: 10, d: 2 } }], rows }));
+  const sess = new Session({ file: BIG, name: 'watchdog.sav', timeouts: { summary: 1 } });
   try {
     await sess.open();
-    await assert.rejects(sess.call({ op: 'summary', col: 6 }), (e) => e.code === 'TIMEOUT');
+    await assert.rejects(sess.call({ op: 'summary', col: 0 }), (e) => e.code === 'TIMEOUT');
     sess.timeouts.summary = 30000;
-    const r = await sess.call({ op: 'summary', col: 6 });
-    assert.strictEqual(r.s.valid, ROWS.filter((x) => !Number.isNaN(x.income)).length);
-  } finally { sess.dispose(); }
+    const r = await sess.call({ op: 'summary', col: 0 });
+    assert.strictEqual(r.s.valid, n);
+  } finally { sess.dispose(); fs.rmSync(BIG, { force: true }); }
 });
 
 test('a session over an in-memory copy (remote files) reads data and refuses other bytes', async () => {
