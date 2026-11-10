@@ -236,8 +236,8 @@ async function codebook(from, kind) {
     r = await vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title: `Writing the codebook of ${v.name}` }, () => v.call({ op: 'codebook', kind }));
   } catch (err) { vscode.window.showWarningMessage(`Codebook stopped: ${err.message}`); return; }
   await vscode.workspace.fs.writeFile(target, Buffer.from(r.text, 'utf8'));
-  await pro.produced('codebook');
-  vscode.window.setStatusBarMessage(`Codebook of ${fmtInt(r.variables)} variables saved to ${baseName(target)}.`, 6000);
+  const note = await pro.produced('codebook', { quiet: true });
+  vscode.window.setStatusBarMessage(`Codebook of ${fmtInt(r.variables)} variables saved to ${baseName(target)}.${note ? ` ${note}` : ''}`, 8000);
   await vscode.window.showTextDocument(target, { preview: false, viewColumn: vscode.ViewColumn.Beside }).then(undefined, () => undefined);
   refreshPro();
 }

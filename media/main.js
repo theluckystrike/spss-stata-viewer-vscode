@@ -156,7 +156,7 @@
     const vis = Math.ceil(vh / ROW_H) + 1;
     let first, offY;
     if (full <= MAX_H) { first = Math.floor(sc.scrollTop / ROW_H); offY = -(sc.scrollTop % ROW_H); }
-    else { const span = Math.max(1, totalH - vh); const frac = Math.min(1, sc.scrollTop / span); first = Math.floor(frac * Math.max(0, S.count - vis + 1)); offY = 0; }
+    else { const span = Math.max(1, totalH - vh); const frac = Math.min(1, sc.scrollTop / span); const fit = Math.max(1, Math.floor(vh / ROW_H)); first = Math.floor(frac * Math.max(0, S.count - fit)); offY = 0; } // at the end the last row sits fully on screen
     return { first: Math.max(0, first), offY, vis, vh, totalH };
   }
 

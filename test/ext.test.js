@@ -197,6 +197,9 @@ test('codebook: cancel keeps the try; a saved codebook uses one and opens', asyn
     await v.send({ type: 'tool', tool: 'codebook', arg: { kind: 'html' } });
     assert.match(fs.readFileSync(out, 'utf8'), /<h2 id="v1">region: Region<\/h2>/);
     assert.strictEqual(s.state.get('statsViewer.proTrial').codebook, 1);
+    // One status message carries both the saved file and the try count (a second message would replace the first).
+    const last = s.log.status.at(-1);
+    assert.match(last, /^Codebook of \d+ variables saved to survey\.codebook\.html\. Zovo Pro: free try 1 of 3 of "Codebook \(Markdown, HTML, CSV\)" used, 2 left on this computer\.$/);
     closeAll(s);
   } finally { s.restore(); }
 });

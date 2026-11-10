@@ -42,15 +42,19 @@ function createPro({ vscode, context, license, prefix = 'statsViewer', productNa
     return !!(await lic.requirePro(feat.title, { detail: feat.detail, triesUsed: used(f), tools: TOOLS }));
   }
 
-  /** After the tool produced its output: counts one free try (nothing when licensed). */
-  async function produced(f) {
-    if (licensed() || !FEATURES[f]) return;
+  /** After the tool produced its output: counts one free try (nothing when licensed). Returns the try note ('' when
+   *  licensed). With { quiet: true } the caller shows the note in its own status message (one message, not two that
+   *  replace each other). */
+  async function produced(f, { quiet = false } = {}) {
+    if (licensed() || !FEATURES[f]) return '';
     const m = { ...(context.globalState.get(TRIAL_KEY) || {}) };
     m[f] = used(f) + 1;
     await context.globalState.update(TRIAL_KEY, m);
     const l = left(f);
-    vscode.window.setStatusBarMessage(`Zovo Pro: free try ${used(f)} of ${TRIAL_USES} of "${FEATURES[f].title}" used${l ? `, ${l} left` : ''} on this computer.`, 8000);
+    const note = `Zovo Pro: free try ${used(f)} of ${TRIAL_USES} of "${FEATURES[f].title}" used${l ? `, ${l} left` : ''} on this computer.`;
+    if (!quiet) vscode.window.setStatusBarMessage(note, 8000);
     emitter.fire(false);
+    return note;
   }
 
   context.subscriptions.push(emitter);
