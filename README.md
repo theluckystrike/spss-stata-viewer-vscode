@@ -6,6 +6,13 @@ Open SPSS `.sav` and `.zsav`, Stata `.dta` and SAS transport `.xpt` data files i
 
 ![SPSS viewer: a survey file in the data grid with value labels on, a filter on the region column and the row numbers from the file](images/grid.png)
 
+## Teams and companies
+
+- Zovo Pro Team is the company licence: USD 59 once for a team of 5, one key, the Pro tools in every Zovo extension that has them. [See Zovo Pro Team](https://license.zovo.one/buy/zovo-pro-team?client_reference_id=readme-spss)
+- Commercial use is allowed.
+- The key is checked on your computer, so it works offline. No account and no subscription.
+- Invoice with your company name and tax ID on request: support@zovo.one.
+
 ## What you get for free
 
 - Data grid. Rows load a page at a time from a reader in the background, so a file with millions of rows scrolls at once. Click a column header to sort; click again for descending.
